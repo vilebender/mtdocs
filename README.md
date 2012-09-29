@@ -1,4 +1,5 @@
 Welcome to MooTools Docs Redesigned by Rumian.
+
 To speed up things you can use keyboard.
 
 	[f] key - get focus to search input,
