@@ -1,0 +1,87 @@
+<div id="logo" class="mac-os-window">
+	<div class="dimmer"></div>
+	<nav class="control-window">
+		<a href="javascript:void(0);" class="close">Close</a>
+		<a href="javascript:void(0);" class="minimize">Minimize</a>
+		<a href="javascript:void(0);" class="maximize">Maximize</a>
+	</nav>
+	<h1 class="titleInside">mootools-core-1.4.5.js</h1>
+	<div class="container">
+		<pre class="javascript"><code>
+(function(){
+
+this.MooTools = {
+	version: '1.4.5',
+	build: 'ab8ea8824dc3b24b6666867a2c4ed58ebb762cf0'
+};
+
+// typeOf, instanceOf
+
+var typeOf = this.typeOf = function(item){
+	if (item == null) return 'null';
+	if (item.$family != null) return item.$family();
+
+	if (item.nodeName){
+		if (item.nodeType == 1) return 'element';
+		if (item.nodeType == 3) return (/\S/).test(item.nodeValue) ? 'textnode' : 'whitespace';
+	} else if (typeof item.length == 'number'){
+		if (item.callee) return 'arguments';
+		if ('item' in item) return 'collection';
+	}
+
+	return typeof item;
+};
+
+var instanceOf = this.instanceOf = function(item, object){
+	if (item == null) return false;
+	var constructor = item.$constructor || item.constructor;
+	while (constructor){
+		if (constructor === object) return true;
+		constructor = constructor.parent;
+	}
+	/*<ltIE8>*/
+	if (!item.hasOwnProperty) return false;
+	/*</ltIE8>*/
+	return item instanceof object;
+};
+
+// Function overloading
+
+var Function = this.Function;
+
+var enumerables = true;
+for (var i in {toString: 1}) enumerables = null;
+if (enumerables) enumerables = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
+
+Function.prototype.overloadSetter = function(usePlural){
+	var self = this;
+	return function(a, b){
+		if (a == null) return this;
+		if (usePlural || typeof a != 'string'){
+			for (var k in a) self.call(this, k, a[k]);
+			if (enumerables) for (var i = enumerables.length; i--;){
+				k = enumerables[i];
+				if (a.hasOwnProperty(k)) self.call(this, k, a[k]);
+			}
+		} else {
+			self.call(this, a, b);
+		}
+		return this;
+	};
+};
+
+Function.prototype.overloadGetter = function(usePlural){
+	var self = this;
+	return function(a){
+		</code></pre>
+	</div>
+	<div class="ribbon-front page-title">
+		<div>new <strong>MooTools</strong>.Docs()</div>
+	</div>
+	<div class="ribbon-edge-topleft"></div>
+	<div class="ribbon-edge-topright"></div>
+	<div class="ribbon-edge-bottomleft"></div>
+	<div class="ribbon-edge-bottomright"></div>
+	<div class="ribbon-back-left"></div>
+	<div class="ribbon-back-right"></div>
+</div>

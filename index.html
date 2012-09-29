@@ -1,0 +1,59 @@
+<!DOCTYPE html><html><head><title>MooTools Docs</title>
+
+	<link rel="icon" type="image/png" href="mootools.png">
+
+	<link rel="stylesheet" type="text/css" href="bootstrap/custom/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="keys.css">
+	<link rel="stylesheet" type="text/css" href="autocomplete.css">
+	<link rel="stylesheet" type="text/css" href="skeleton.css">
+	<link rel="stylesheet" type="text/css" href="highlight/styles/monokai.css">
+
+	<script type="text/javascript" src="head.min.js"></script>
+
+	<script type="text/javascript">
+		head.js(
+			"mt.js"
+			, "md5.js"
+			, "mooml.js"
+			, "showdown.js"
+			, "autocomplete.js"
+			, "moosql.js"
+			, "highlight/highlight.pack.js"
+			, "vars.js"
+			, "app.js"
+		);
+	</script>
+
+</head><body class="loading">
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="well well-small soft-hide well-with-list">
+					<ul id="files-list" class="nav nav-list files-list"></ul>
+				</div>
+			</div>
+			<div class="span7 with-search-box">
+				<div class="well well-small soft-hide search-box-container" id="search-box">
+					<div class="input-prepend input-append">
+						<span class="add-on key-font">[f]</span><input class="span8" type="text" placeholder="Search..."><button class="btn"><span class="key-font">[t]</span> Top 10</button>
+					</div>
+				</div>
+				<div id="file-content" class="file-content-container">
+					<ul id="top10" class="nav nav-pills nav-stacked top10-list hide"></ul>
+					<div id="logo-container"></div>
+				</div>
+			</div>
+			<div class="span2">
+				<div class="well well-small soft-hide well-with-list">
+					<ul id="methods-list" class="nav nav-list">
+						<li class="nav-header">Methods</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="loading-msg"><img src="spinner.gif"><p>Loading...</p></div>
+
+</body></html>
