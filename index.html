@@ -1,26 +1,57 @@
-<!DOCTYPE html><html><head><title>MooTools Docs</title>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>MooTools Docs</title>
 
 	<link rel="icon" type="image/png" href="mootools.png">
 
+	<style type="text/css">
+		.not-supported-msg { display: none; }
+		.loading-msg { display: none; }
+	</style>
+
 	<link rel="stylesheet" type="text/css" href="bootstrap/custom/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="keys.css">
-	<link rel="stylesheet" type="text/css" href="autocomplete.css">
-	<link rel="stylesheet" type="text/css" href="skeleton.css">
-	<link rel="stylesheet" type="text/css" href="highlight/styles/monokai.css">
 
 	<script type="text/javascript" src="head.min.js"></script>
 
 	<script type="text/javascript">
 		head.js(
 			"mt.js"
-			, "md5.js"
-			, "mooml.js"
-			, "showdown.js"
-			, "autocomplete.js"
-			, "moosql.js"
-			, "highlight/highlight.pack.js"
-			, "vars.js"
-			, "app.js"
+			, function()
+			{
+				if (!Browser.chrome)
+				{
+					var css = [
+						"font-awesome/css/font-awesome.css"
+						, "not-supported.css"
+					];
+					css.each(function(path)
+					{
+						Asset.css(path, {media: "screen"});
+					});
+					$(document.body).removeClass("loading").addClass("not-supported");
+				}
+				else
+				{
+					var css = [
+						"keys.css"
+						, "autocomplete.css"
+						, "skeleton.css"
+						, "highlight/styles/monokai.css"
+					];
+					css.each(function(path)
+					{
+						Asset.css(path, {media: "screen"});
+					});
+					head.js(
+						"md5.js"
+						, "mooml.js"
+						, "showdown.js"
+						, "autocomplete.js"
+						, "moosql.js"
+						, "highlight/highlight.pack.js"
+						, "vars.js"
+						, "app.js"
+					);
+				}
+			}
 		);
 	</script>
 
@@ -55,5 +86,7 @@
 	</div>
 
 	<div class="loading-msg"><img src="spinner.gif"><p>Loading...</p></div>
+
+	<div class="not-supported-msg"><i class="icon-eye-close"></i><p>Sorry, currently Chrome only.</p></div>
 
 </body></html>

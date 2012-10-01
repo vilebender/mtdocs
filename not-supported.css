@@ -1,0 +1,32 @@
+.not-supported-msg {
+  display: none;
+  width: 100%;
+  height: 94px;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -94px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 22px;
+  color: #666;
+}
+.not-supported-msg .icon-eye-close {
+  font-size: 72px;
+  line-height: 72px;
+  height: 72px;
+  width: 100%;
+  background: none;
+}
+.not-supported-msg p {
+  margin: 0;
+}
+.not-supported .not-supported-msg {
+  display: block;
+}
+.loading-msg {
+  display: none;
+}
+.container-fluid {
+  display: none;
+}

@@ -3,6 +3,24 @@ body
 	padding: 26px 0;
 }
 
+.click-mask
+{
+	z-index: 900;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	&.dark-mask
+	{
+		background-color: rgba(0, 0, 0, .7);
+	}
+}
+
+.not-supported-msg
+{
+	display: none;
+}
+
 .loading-msg
 {
 	display: none;
@@ -15,7 +33,7 @@ body
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	margin-top: -50px;
+	margin-top: -76px; /* -26px */
 	margin-left: -104px;
 	padding: 10px;
 	background-color: #fff;
@@ -56,15 +74,15 @@ body
 
 .file-content-container
 {
-	h2
+	.h2-container
 	{
-		button
+		padding: 3px;
+
+		h2
 		{
-			position: relative;
-			top: -4px;
-			margin-right: 6px;
-			margin-left: 6px;
-			z-index: 2;
+			margin-left: 70px;
+			margin-top: 0;
+			line-height: 28px;
 		}
 	}
 }

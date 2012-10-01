@@ -36,7 +36,7 @@ var templates = {
 					, data.count
 				)
 			)
-		)
+		);
 	})
 	, fileListItem: new Mooml.Template("fileListItem", function(data)
 	{
@@ -94,27 +94,168 @@ var templates = {
 				}
 				, data.displayLabel
 			)
-		)
+		);
 	})
 	, toTheTopBtn: new Mooml.Template("toTheTopBtn", function(data){
-		button(
+		div(
 			{
-				class: "btn btn-small btn-inverse"
-				, events: {
-					click: function()
-					{
-						scrollContainer(window);
+				class: "btn-group pull-left"
+			}
+			, button(
+				{
+					class: "btn btn-small btn-inverse"
+					, events: {
+						click: function()
+						{
+							scrollContainer(window);
+						}
 					}
 				}
-			}
-			, i(
-				{
-					class: "icon-chevron-up icon-white"
-				}
+				, i(
+					{
+						class: "icon-chevron-up icon-white"
+					}
+				)
 			)
-		)
+			, button
+			(
+				{
+					class: "btn btn-small btn-inverse dropdown-toggle"
+					, events: {
+						click: function()
+						{
+							this.getParent().toggleClass("open");
+							clickMask();
+						}
+					}
+				}
+				, span(
+					{
+						class: "caret"
+					}
+				)
+			)
+			, ul
+			(
+				{
+					class: "dropdown-menu"
+				}
+				, li(
+					a(
+						{
+							href: "javascript:void(0)"
+							, events: {
+								click: function()
+								{
+									new Request.JSON({
+										url: "build.php"
+										, data: {
+											file: data.file
+										}
+										, onSuccess: function(json)
+										{
+											new Element("iframe",
+											{
+												src: json.filename
+											}).inject($(document.body)).hide();
+										}
+									}).send();
+								}
+							}
+						}
+						, "Build"
+					)
+				)
+				, li(
+					a(
+						{
+							href: "javascript:void(0)"
+							, events: {
+								click: function()
+								{
+									$$(".click-mask").fireEvent("click");
+
+									var modal = (this.retrieve("modal") || templates.fiddle.render().inject($(document.body)))
+										.removeClass("hide");
+
+									this.store("modal", modal);
+
+									clickMask("dark-mask");
+								}
+							}
+						}
+						, "Fiddle"
+					)
+				)
+				, li(a({href: "javascript:void(0)"}, "Add to favourites"))
+			)
+		);
+	})
+	, fiddle: new Mooml.Template("fiddle", function(data){
+		div(
+			{
+				class: "modal hide"
+			}
+			, div(
+				{
+					class: "modal-header"
+				}
+				, button(
+					{
+						class: "close"
+						, "aria-hidden": true
+						, events: {
+							click: function()
+							{
+								$$(".click-mask").fireEvent("click");
+							}
+						}
+					}
+					, "&times;"
+				),
+				h3("jsFiddle")
+			)
+			, div(
+				{
+					class: "modal-body"
+				}
+				, p(
+					iframe(
+						{
+							src: "http://jsfiddle.net/vilebender/aZs5b/embedded/"
+							, allowfullscreen: "allowfullscreen"
+							, frameborder: "frameborder"
+							, styles: {
+								width: "100%"
+								, height: 300
+							}
+						}
+					)
+				)
+			)
+			, div(
+				{
+					class: "modal-footer"
+				}
+				, button(
+					{
+						class: "btn"
+						, events: {
+							click: function()
+							{
+								$$(".click-mask").fireEvent("click");
+							}
+						}
+					}
+					, "Done playing"
+				)
+			)
+		);
 	})
 };
+
+// <iframe style="width: 100%; height: 300px" src="http://jsfiddle.net/vilebender/aZs5b/embedded/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
 var containers = {
 	filesList: $("files-list")
 	, fileContent: $("file-content")

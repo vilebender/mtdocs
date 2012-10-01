@@ -13,6 +13,35 @@ Slick.definePseudo("dataMethod", function(value)
 	return str == value;
 });
 
+function clickMask(extraClass)
+{
+	new Element("div",
+	{
+		class: "click-mask " + extraClass
+		, styles: {
+			width: window.getScrollWidth()
+			, height: window.getScrollHeight()
+		}
+		, events: {
+			click: function()
+			{
+				$$(".open").removeClass("open");
+				$$(".modal").addClass("hide");
+				window.removeEvent("resize", clickMaskSize);
+				this.dispose();
+			}
+		}
+	}).inject($(document.body));
+	var clickMaskSize = function()
+	{
+		$$(".click-mask").setStyles({
+			width: window.getScrollWidth()
+			, height: window.getScrollHeight()
+		});
+	};
+	window.addEvent("resize", clickMaskSize);
+};
+
 function showLoading()
 {
 	$(document.body).addClass("loading");
@@ -109,7 +138,14 @@ function getFile(fileName, goTo)
 		containers.fileContent.getElements("*").removeProperty("id");
 		containers.fileContent.getElements("h2").each(function(el)
 		{
-			templates.toTheTopBtn.render().inject(el, "top");
+			var container = new Element("div",
+			{
+				class: "h2-container clearfix"
+			}).inject(el, "before");
+			templates.toTheTopBtn.render({
+				file: fileName
+			}).inject(container, "top");
+			container.grab(el, "bottom");
 		});
 
 		containers.fileContent.getElements("pre").each(function(element)
@@ -122,6 +158,8 @@ function getFile(fileName, goTo)
 		containers.fileContent.getElements("a").each(function(anchor)
 		{
 			var href = anchor.get("href");
+
+			if (!href || href.test("javascript")) return;
 
 			if (href.test("http"))
 			{
@@ -163,7 +201,7 @@ function getFile(fileName, goTo)
 				new Element("li",
 				{
 					class: "nav-header"
-					, text: "Methods"
+					, text: createDisplayLabel(file_method.file, "top10file")
 				}).inject(containers.methodsList);
 
 				file_method.methods.each(function(method)
