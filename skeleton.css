@@ -96,7 +96,8 @@ body {
   -webkit-transition: opacity .5s;
   z-index: 1000;
 }
-.top10-list-container:hover .tools {
+.top10-list-container:hover .tools,
+.top10-list-container.hover .tools {
   opacity: 1;
 }
 .top10-list li {

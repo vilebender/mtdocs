@@ -372,7 +372,9 @@ function top10Rows()
 					{
 						btn.set("html", btn.retrieve("originalHtml"));
 						btn.removeClass("decide");
+						containers.top10.removeClass("hover");
 					});
+					containers.top10.addClass("hover");
 				}
 			};
 			emptyListBtn.addEvent("click", clickAction);
