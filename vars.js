@@ -100,7 +100,30 @@ var templates = {
 			)
 		);
 	})
-	, toTheTopBtn: new Mooml.Template("toTheTopBtn", function(data){
+	, toTheTopBtn: new Mooml.Template("toTheTopBtn", function(){
+		div(
+			{
+				class: "btn-group pull-left"
+			}
+			, button(
+				{
+					class: "btn btn-small btn-inverse"
+					, events: {
+						click: function()
+						{
+							scrollContainer(window);
+						}
+					}
+				}
+				, i(
+					{
+						class: "icon-chevron-up icon-white"
+					}
+				)
+			)
+		);
+	})
+	, toTheTopBtnExtended: new Mooml.Template("toTheTopBtn", function(data){
 		div(
 			{
 				class: "btn-group pull-left"
