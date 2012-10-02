@@ -327,7 +327,7 @@ function top10Rows()
 			var fileName = r.rows.item(i).fileName;
 			var goTo = r.rows.item(i).goTo;
 			var count = r.rows.item(i).count;
-			var n = i < 10 ? i + 1 : 0;
+			var n = i < 9 ? i + 1 : 0;
 
 			templates.top10Item.render({
 				fileName: fileName
