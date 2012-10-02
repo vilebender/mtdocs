@@ -52,7 +52,7 @@ function hideLoading()
 	$(document.body).removeClass("loading");
 };
 
-function createDisplayLabel(value, type)
+function createDisplayLabel(value, type, trim)
 {
 	var result = null;
 	switch (type)
@@ -64,7 +64,7 @@ function createDisplayLabel(value, type)
 			result = value.split(separator).getLast().replace(".md", "");
 			break;
 	}
-	return result;
+	return trim ? result.substr(0, trim) + "..." : result;
 };
 
 function setURI(value)
@@ -201,7 +201,7 @@ function getFile(fileName, goTo)
 				new Element("li",
 				{
 					class: "nav-header"
-					, text: createDisplayLabel(file_method.file, "top10file")
+					, text: createDisplayLabel(file_method.file, "top10file", 21)
 				}).inject(containers.methodsList);
 
 				file_method.methods.each(function(method)

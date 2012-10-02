@@ -141,13 +141,17 @@ var templates = {
 					class: "dropdown-menu"
 				}
 				, li(
-					a(
+					{
+						class: "disabled"
+					}
+					, a(
 						{
 							href: "javascript:void(0)"
 							, events: {
 								click: function()
 								{
-									new Request.JSON({
+									return;
+									/*new Request.JSON({
 										url: "build.php"
 										, data: {
 											file: data.file
@@ -159,7 +163,7 @@ var templates = {
 												src: json.filename
 											}).inject($(document.body)).hide();
 										}
-									}).send();
+									}).send();*/
 								}
 							}
 						}
@@ -167,20 +171,24 @@ var templates = {
 					)
 				)
 				, li(
-					a(
+					{
+						class: "disabled"
+					}
+					, a(
 						{
 							href: "javascript:void(0)"
 							, events: {
 								click: function()
 								{
-									$$(".click-mask").fireEvent("click");
+									return;
+									/*$$(".click-mask").fireEvent("click");
 
 									var modal = (this.retrieve("modal") || templates.fiddle.render().inject($(document.body)))
 										.removeClass("hide");
 
 									this.store("modal", modal);
 
-									clickMask("dark-mask");
+									clickMask("dark-mask");*/
 								}
 							}
 						}
