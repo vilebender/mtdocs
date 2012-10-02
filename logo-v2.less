@@ -87,6 +87,12 @@
 		float: none;
 		opacity: 1;
 		z-index: 3;
+
+		&.disabled
+		{
+			opacity: .5;
+			cursor: default;
+		}
 	}
 	nav.control-window a:before {
 		content: '';

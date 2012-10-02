@@ -1,3 +1,7 @@
+var options = {
+	showLogo: false
+};
+
 var storage = new MooSQL({
 	dbName: "MooToolsDocsByRumian"
 	, dbVersion: "1.0"

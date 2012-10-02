@@ -13,11 +13,11 @@ Slick.definePseudo("dataMethod", function(value)
 	return str == value;
 });
 
-function clickMask(extraClass)
+function clickMask(extraClass, action)
 {
 	new Element("div",
 	{
-		class: "click-mask " + extraClass
+		class: "click-mask " + (extraClass || "")
 		, styles: {
 			width: window.getScrollWidth()
 			, height: window.getScrollHeight()
@@ -25,8 +25,8 @@ function clickMask(extraClass)
 		, events: {
 			click: function()
 			{
-				$$(".open").removeClass("open");
-				$$(".modal").addClass("hide");
+				if (action) action.attempt(this);
+
 				window.removeEvent("resize", clickMaskSize);
 				this.dispose();
 			}
@@ -301,7 +301,9 @@ function top10Rows()
 {
 	var SQLRows = [];
 
-	containers.top10.empty();
+	var ul = containers.top10.getElement("ul");
+
+	ul.empty();
 
 	storage.exec("SELECT goTo, fileName, COUNT(id) AS count FROM topTen GROUP BY goTo ORDER BY COUNT(id) DESC, added DESC LIMIT 10", function(t, r){
 		for (var i = 0; i < r.rows.length; i++)
@@ -317,7 +319,7 @@ function top10Rows()
 				, displayLabel: (goTo != fileName ? createDisplayLabel(goTo, "method") + " @ " : "") + createDisplayLabel(fileName, "top10file")
 				, key: n
 				, count: count
-			}).inject(containers.top10);
+			}).inject(ul);
 
 			SQLRows.push({
 				n: n
@@ -327,6 +329,38 @@ function top10Rows()
 		}
 
 		containers.top10.store("data", SQLRows);
+
+		// attach event to "Empty list" button (if not yet attached)
+		var emptyListBtn = containers.top10.getElement('[data-action = "empty-list"]');
+		if (emptyListBtn && !emptyListBtn.retrieve("event"))
+		{
+			var clickAction = function()
+			{
+				var btn = this;
+				var btnHtml = btn.get("html");
+
+				if (btn.hasClass("decide"))
+				{
+					storage.exec("DELETE FROM topTen");
+					btn.set("html", btn.retrieve("originalHtml"));
+					$$(".click-mask").fireEvent("click");
+					top10Rows();
+				}
+				else
+				{
+					btn.store("originalHtml", btnHtml);
+					btn.set("html", '<i class="icon-question-sign"></i> Sure?');
+					btn.addClass("decide");
+					clickMask(null, function()
+					{
+						btn.set("html", btn.retrieve("originalHtml"));
+						btn.removeClass("decide");
+					});
+				}
+			};
+			emptyListBtn.addEvent("click", clickAction);
+			emptyListBtn.store("event", clickAction);
+		}
 
 		hideLoading();
 		top10Keys();
@@ -479,7 +513,8 @@ function filesListRequest()
 		window.addEvent("resize", positionAndPin);
 
 		// logo
-		loadLogo("v2");
+		if (options.showLogo) loadLogo("v2");
+		else showTopTen();
 	};
 
 	function attachAutocomplete(data)

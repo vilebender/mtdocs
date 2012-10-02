@@ -84,9 +84,20 @@ body {
   background-color: white;
   color: #0088cc;
 }
-.top10-list {
-  margin-left: 100px;
-  margin-right: 100px;
+.top10-list-container {
+  padding: 0 100px;
+  position: relative;
+}
+.top10-list-container .tools {
+  position: absolute;
+  top: 6px;
+  right: 100px;
+  opacity: 0;
+  -webkit-transition: opacity .5s;
+  z-index: 1000;
+}
+.top10-list-container:hover .tools {
+  opacity: 1;
 }
 .top10-list li {
   position: relative;
@@ -127,159 +138,4 @@ button .key-font {
 }
 .files-list .active .label {
   visibility: visible;
-}
-/* Pretty printing styles. Used with prettify.js. */
-
-/* Vim sunburst theme by David Leibovic */
-
-pre .str,
-code .str {
-  color: #65b042;
-}
-/* string  - green */
-
-pre .kwd,
-code .kwd {
-  color: #e28964;
-}
-/* keyword - dark pink */
-
-pre .com,
-code .com {
-  color: #aeaeae;
-  font-style: italic;
-}
-/* comment - gray */
-
-pre .typ,
-code .typ {
-  color: #89bdff;
-}
-/* type - light blue */
-
-pre .lit,
-code .lit {
-  color: #3387cc;
-}
-/* literal - blue */
-
-pre .pun,
-code .pun {
-  color: #666666;
-}
-/* punctuation - white */
-
-pre .pln,
-code .pln {
-  color: #666666;
-}
-/* plaintext - white */
-
-pre .tag,
-code .tag {
-  color: #89bdff;
-}
-/* html/xml tag    - light blue */
-
-pre .atn,
-code .atn {
-  color: darkkhaki;
-}
-/* html/xml attribute name  - khaki */
-
-pre .atv,
-code .atv {
-  color: #65b042;
-}
-/* html/xml attribute value - green */
-
-pre .dec,
-code .dec {
-  color: #3387cc;
-}
-/* decimal - blue */
-
-/*pre.prettyprint, code.prettyprint {
-	background-color: #000;
-	-moz-border-radius: 8px;
-	-webkit-border-radius: 8px;
-	-o-border-radius: 8px;
-	-ms-border-radius: 8px;
-	-khtml-border-radius: 8px;
-	border-radius: 8px;
-}
-
-pre.prettyprint {
-	width: 95%;
-	margin: 1em auto;
-	padding: 1em;
-	white-space: pre-wrap;
-}*/
-
-/* Specify class=linenums on a pre to get line numbering */
-
-ol.linenums {
-  margin-top: 0;
-  margin-bottom: 0;
-  color: #aeaeae;
-}
-/* IE indents via margin-left */
-
-li.L0,
-li.L1,
-li.L2,
-li.L3,
-li.L5,
-li.L6,
-li.L7,
-li.L8 {
-  list-style-type: none;
-}
-/* Alternate shading for lines */
-
-@media print {
-  pre .str,
-  code .str {
-    color: #006600;
-  }
-  pre .kwd,
-  code .kwd {
-    color: #000066;
-    font-weight: bold;
-  }
-  pre .com,
-  code .com {
-    color: #660000;
-    font-style: italic;
-  }
-  pre .typ,
-  code .typ {
-    color: #440044;
-    font-weight: bold;
-  }
-  pre .lit,
-  code .lit {
-    color: #004444;
-  }
-  pre .pun,
-  code .pun {
-    color: #444400;
-  }
-  pre .pln,
-  code .pln {
-    color: black;
-  }
-  pre .tag,
-  code .tag {
-    color: #000066;
-    font-weight: bold;
-  }
-  pre .atn,
-  code .atn {
-    color: #440044;
-  }
-  pre .atv,
-  code .atv {
-    color: #006600;
-  }
 }
