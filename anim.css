@@ -1,4 +1,4 @@
-@-webkit-keyframes toshow {
+@-webkit-keyframes enlargeFontDicreaseOpacity {
   0% {
     font-size: 12px;
     line-height: 12px;
@@ -15,7 +15,42 @@
     opacity: 0;
   }
 }
-.star {
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  10% {
+    -webkit-transform: rotate(36deg);
+  }
+  20% {
+    -webkit-transform: rotate(72deg);
+  }
+  30% {
+    -webkit-transform: rotate(108deg);
+  }
+  40% {
+    -webkit-transform: rotate(144deg);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+  60% {
+    -webkit-transform: rotate(216deg);
+  }
+  70% {
+    -webkit-transform: rotate(252deg);
+  }
+  80% {
+    -webkit-transform: rotate(288deg);
+  }
+  90% {
+    -webkit-transform: rotate(324deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+.anim {
   color: #eeeeee;
   display: table;
   font-family: FontAwesome;
@@ -32,15 +67,52 @@
   text-shadow: 1px 1px 1px #666666;
   top: 50%;
   width: 370px;
-  -webkit-animation-name: toshow;
+  -webkit-animation-name: enlargeFontDicreaseOpacity;
   -webkit-animation-iteration-count: 1;
   -webkit-animation-timing-function: ease-in;
   -webkit-animation-duration: .8s;
 }
-.star .inner {
+.anim .inner {
   display: table-cell;
   vertical-align: middle;
 }
+.anim2 {
+  color: #eeeeee;
+  display: table;
+  font-family: FontAwesome;
+  font-size: 250px;
+  height: 350px;
+  left: 50%;
+  line-height: normal;
+  margin-left: -175px;
+  margin-top: -185px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  /*text-shadow: 1px 1px 1px #666;*/
+  top: 50%;
+  width: 370px;
+  -webkit-animation-name: rotate;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-duration: 2s;
+}
+.anim2 .inner {
+  display: table-cell;
+  vertical-align: middle;
+  padding-top: 50px;
+}
 .star .inner:before {
   content: "\f005";
+  /*content: "\f006";*/
+
+}
+.check .inner:before {
+  content: "\f046";
+}
+.ok-sign .inner:before {
+  content: "\f058";
+}
+.refresh .inner:before {
+  content: "\f021";
 }
