@@ -9,9 +9,24 @@ Slick.definePseudo("dataFile", function(value)
 Slick.definePseudo("dataMethod", function(value)
 {
 	var str = Element.get(this, "data-md-method");
-	// if (str) str = str.split(separator).join("");
 	return str == value;
 });
+
+function testAnim()
+{
+	var star = templates.favStar.render().inject($(document.body));
+	(function(){ star.dispose(); }).delay(1000);
+}
+
+function addToFavs(fileName, goTo)
+{
+	storage.exec("CREATE TABLE IF NOT EXISTS favs(id INTEGER PRIMARY KEY ASC, fileName TEXT, goTo TEXT, added DATETIME)");
+	storage.exec("INSERT INTO favs(fileName, goTo, added) VALUES (?, ?, ?)", null, [fileName, (goTo || fileName), new Date().format("db")]);
+
+	// flash confirmation
+	var star = templates.favStar.render().inject($(document.body));
+	(function(){ star.dispose(); }).delay(1000);
+}
 
 function clickMask(extraClass, action)
 {
@@ -64,7 +79,7 @@ function createDisplayLabel(value, type, trim)
 			result = value.split(separator).getLast().replace(".md", "");
 			break;
 	}
-	return trim ? result.substr(0, trim) + "..." : result;
+	return trim ? (result.length > trim ? result.substr(0, trim) + "..." : result) : result;
 };
 
 function setURI(value)
@@ -143,7 +158,8 @@ function getFile(fileName, goTo)
 				class: "h2-container clearfix"
 			}).inject(el, "before");
 			templates.toTheTopBtn.render({
-				file: fileName
+				fileName: fileName
+				, goTo: goTo
 			}).inject(container, "top");
 			container.grab(el, "bottom");
 		});
@@ -334,6 +350,7 @@ function top10Rows()
 		var emptyListBtn = containers.top10.getElement('[data-action = "empty-list"]');
 		if (emptyListBtn && !emptyListBtn.retrieve("event"))
 		{
+			emptyListBtn.removeClass("hide");
 			var clickAction = function()
 			{
 				var btn = this;
@@ -361,6 +378,9 @@ function top10Rows()
 			emptyListBtn.addEvent("click", clickAction);
 			emptyListBtn.store("event", clickAction);
 		}
+
+		// hide "Empty list" button if list is empty
+		if (emptyListBtn && SQLRows.length == 0) emptyListBtn.addClass("hide");
 
 		hideLoading();
 		top10Keys();

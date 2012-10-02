@@ -129,7 +129,10 @@ var templates = {
 						click: function()
 						{
 							this.getParent().toggleClass("open");
-							clickMask();
+							clickMask(null, function()
+							{
+								$$(".open").removeClass("open");
+							});
 						}
 					}
 				}
@@ -158,7 +161,7 @@ var templates = {
 									/*new Request.JSON({
 										url: "build.php"
 										, data: {
-											file: data.file
+											file: data.fileName
 										}
 										, onSuccess: function(json)
 										{
@@ -171,7 +174,7 @@ var templates = {
 								}
 							}
 						}
-						, "Build"
+						, "Build (soon)"
 					)
 				)
 				, li(
@@ -196,10 +199,23 @@ var templates = {
 								}
 							}
 						}
-						, "Fiddle"
+						, "Fiddle (soon)"
 					)
 				)
-				, li(a({href: "javascript:void(0)"}, "Add to favourites"))
+				, li(
+					a(
+						{
+							href: "javascript:void(0)"
+							, events: {
+								click: function()
+								{
+									addToFavs(data.fileName, data.goTo);
+								}
+							}
+						}
+						, "Add to favourites"
+					)
+				)
 			)
 		);
 	})
@@ -263,6 +279,9 @@ var templates = {
 				)
 			)
 		);
+	})
+	, favStar: new Mooml.Template("fiddle", function(){
+		div({class: "star"}, div({class: "inner"}));
 	})
 };
 

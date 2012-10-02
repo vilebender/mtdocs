@@ -1,0 +1,46 @@
+@-webkit-keyframes toshow {
+  0% {
+    font-size: 12px;
+    line-height: 12px;
+    opacity: 1;
+  }
+  50% {
+    font-size: 152px;
+    line-height: 152px;
+    opacity: 1;
+  }
+  100% {
+    font-size: 252px;
+    line-height: 252px;
+    opacity: 0;
+  }
+}
+.star {
+  color: #eeeeee;
+  display: table;
+  font-family: FontAwesome;
+  font-size: 252px;
+  height: 350px;
+  left: 50%;
+  line-height: 252px;
+  margin-left: -175px;
+  margin-top: -185px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  text-shadow: 1px 1px 1px #666666;
+  top: 50%;
+  width: 370px;
+  -webkit-animation-name: toshow;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-timing-function: ease-in;
+  -webkit-animation-duration: .8s;
+}
+.star .inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+.star .inner:before {
+  content: "\f005";
+}
